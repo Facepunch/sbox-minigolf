@@ -17,6 +17,10 @@
 								from = "circle.vmat"
 								to = "dev/helper/testgrid.vmat"
 							},
+							{
+								from = "lambert2sg.vmat"
+								to = "materials/generic/wall_brick_blend_older_dirt.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
