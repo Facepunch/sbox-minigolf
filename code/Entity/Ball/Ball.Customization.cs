@@ -42,7 +42,6 @@ public partial class Ball
         ApplyCustomization();
     }
 
-    private Angles targetAngles;
     private Vector3 prevPosition;
     [Event.Tick]
     private void MoveHat()
@@ -63,7 +62,7 @@ public partial class Ball
 
         if (dir.IsNearlyZero()) return;
 
-        targetAngles = Rotation.LookAt(dir).Angles().WithRoll(0);
+        var targetAngles = Vector3.VectorAngle(dir);
         target.Rotation = Rotation.Lerp(target.Rotation, Rotation.From(targetAngles), 5f * Time.Delta);
     }
 
