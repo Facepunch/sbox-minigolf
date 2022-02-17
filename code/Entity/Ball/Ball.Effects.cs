@@ -48,6 +48,8 @@ public partial class Ball
 			NameTag?.Delete();
 			PowerArrow?.Delete();
 		}
+
+		CleanupCustomization();
 	}
 
 	private void CreateParticles()
