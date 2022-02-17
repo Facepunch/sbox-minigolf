@@ -42,6 +42,8 @@ public partial class Ball
         ApplyCustomization();
     }
 
+    private Angles targetAngles;
+    private Vector3 prevPosition;
     [Event.Tick]
     private void MoveHat()
     {
@@ -55,6 +57,14 @@ public partial class Ball
 
         var target = IsLocalPawn ? localhat : hat;
         target.Position = Position + Vector3.Up * 5;
+
+        var dir = Position - prevPosition;
+        prevPosition = Position;
+
+        if (dir.IsNearlyZero()) return;
+
+        targetAngles = Rotation.LookAt(dir).Angles().WithRoll(0);
+        target.Rotation = Rotation.Lerp(target.Rotation, Rotation.From(targetAngles), 5f * Time.Delta);
     }
 
     private void ApplyCustomization()
