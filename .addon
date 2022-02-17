@@ -6,7 +6,9 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "ResourcePaths": null,
+  "ResourcePaths": [
+    "/config/*"
+  ],
   "HasCode": true,
   "CodePath": "code",
   "RootNamespace": "Minigolf"
