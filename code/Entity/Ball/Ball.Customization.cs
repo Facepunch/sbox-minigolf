@@ -53,7 +53,8 @@ public partial class Ball
             localhat = new AnimEntity(hat.GetModelName());
         }
 
-        (IsLocalPawn? localhat : hat).Position = Position + Vector3.Up * 4;
+        var target = IsLocalPawn ? localhat : hat;
+        target.Position = Position + Vector3.Up * 5;
     }
 
     private void ApplyCustomization()
@@ -61,6 +62,7 @@ public partial class Ball
         var cc = Client.Components.GetOrCreate<CustomizeComponent>();
 
         CleanupCustomization();
+        CleanupCustomizationOnClient();
 
         var trailpart = cc.GetEquippedPart("Trails");
         if (trailpart != null)
@@ -74,6 +76,12 @@ public partial class Ball
         {
             hat = new AnimEntity(hatpart.AssetPath);
         }
+    }
+
+    [ClientRpc]
+    private void CleanupCustomizationOnClient()
+    {
+        CleanupCustomization();
     }
 
 }
