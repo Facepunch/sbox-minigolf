@@ -55,7 +55,7 @@ public partial class Ball
         }
 
         var target = IsLocalPawn ? localhat : hat;
-        target.Position = Position + Vector3.Up * 5;
+        target.Position = Position + Vector3.Up * 2;
 
         var dir = Position - prevPosition;
         prevPosition = Position;
