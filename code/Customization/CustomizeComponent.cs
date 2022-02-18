@@ -12,8 +12,8 @@ public class CustomizeComponent : EntityComponent
 
 	public static string EnsembleJson
 	{
-		get => Cookie.Get(Global.GameName + ".customize.ensemble", string.Empty );
-		set => Cookie.Set(Global.GameName + ".customize.ensemble", value );
+		get => Cookie.Get(Global.GameIdent + ".customize.ensemble", string.Empty );
+		set => Cookie.Set(Global.GameIdent + ".customize.ensemble", value );
 	}
 
 	public List<CustomizationPart> Parts = new();
