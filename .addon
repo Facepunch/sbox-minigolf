@@ -7,7 +7,9 @@
   "HasAssets": true,
   "AssetsPath": "",
   "ResourcePaths": [
-    "/config/*"
+    "/config/*",
+    "/fonts/*",
+    "/ui/*"
   ],
   "HasCode": true,
   "CodePath": "code",
