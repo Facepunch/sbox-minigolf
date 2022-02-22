@@ -41,7 +41,7 @@ public partial class PowerArrow : RenderEntity
 		vertexBuffer.Add( g );
 		vertexBuffer.AddTriangleIndex( 1, 2, 3 );
 
-		Render.Set( "color", color );
+		Render.Attributes.Set( "color", color );
 
 		vertexBuffer.Draw( Material );
 	}
@@ -51,7 +51,7 @@ public partial class PowerArrow : RenderEntity
 		if ( Power.AlmostEqual(0.0f) )
 			return;
 
-		Render.SetLighting( obj );
+		Render.SetupLighting( obj );
 
 		var startPos = Position;
 		var endPos = Position + Direction * Power * 100;

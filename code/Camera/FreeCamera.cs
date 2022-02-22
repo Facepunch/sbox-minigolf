@@ -3,7 +3,7 @@ using Sandbox;
 
 namespace Facepunch.Minigolf;
 
-public class FreeCamera : Camera
+public class FreeCamera : CameraMode
 {
 	Angles LookAngles;
 	Vector3 MoveInput;
@@ -31,11 +31,11 @@ public class FreeCamera : Camera
 
 		var tr = Trace.Ray( Position, Position + Rotation.Forward * 4096 ).UseHitboxes().Run();
 
-		// DebugOverlay.Box( tr.EndPos, Vector3.One * -1, Vector3.One, Color.Red );
+		// DebugOverlay.Box( tr.EndPosition, Vector3.One * -1, Vector3.One, Color.Red );
 
 		Viewer = null;
 		{
-			var lerpTarget = tr.EndPos.Distance( Position );
+			var lerpTarget = tr.EndPosition.Distance( Position );
 
 			DoFPoint = lerpTarget;// DoFPoint.LerpTo( lerpTarget, Time.Delta * 10 );
 		}

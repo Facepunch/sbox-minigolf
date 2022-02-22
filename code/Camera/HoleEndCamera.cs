@@ -2,11 +2,8 @@ using Sandbox;
 
 namespace Facepunch.Minigolf;
 
-public class HoleEndCamera : ICamera
+public class HoleEndCamera : CameraMode
 {
-	Vector3 Position;
-	Rotation Rotation;
-
 	Vector3 TargetPosition;
 	Rotation TargetRotation;
 
@@ -23,27 +20,27 @@ public class HoleEndCamera : ICamera
 
 		Position = CurrentView.Position;
 		Rotation = CurrentView.Rotation;
+	}
 
-		// TargetPosition = Position;
-		// TargetRotation = Rotation;
+    public override void Update()
+    {
+		Rot += RealTime.Delta * 10.0f;
+
+		Rotation rot = Rotation.FromYaw(Rot);
+
+		Vector3 dir = (Vector3.Up * 0.35f) + (Vector3.Forward * rot);
+		dir = dir.Normal;
+
+		TargetPosition = HolePosition + Vector3.Up * 50.0f + dir * DistanceAwayFromHole;
+		TargetRotation = Rotation.From((-dir).EulerAngles);
+
+		// Slerp slerp
+		Position = Position.LerpTo(TargetPosition, RealTime.Delta * LerpSpeed);
+		Rotation = Rotation.Slerp(Rotation, TargetRotation, RealTime.Delta * LerpSpeed);
 	}
 
 	public override void Build( ref CameraSetup camSetup )
 	{
-		Rot += RealTime.Delta * 10.0f;
-
-		Rotation rot = Rotation.FromYaw( Rot );
-
-		Vector3 dir = (Vector3.Up * 0.35f) + ( Vector3.Forward * rot );
-		dir = dir.Normal;
-
-		TargetPosition = HolePosition + Vector3.Up * 50.0f + dir * DistanceAwayFromHole;
-		TargetRotation = Rotation.From( (-dir).EulerAngles );
-
-		// Slerp slerp
-		Position = Position.LerpTo( TargetPosition, RealTime.Delta * LerpSpeed );
-		Rotation = Rotation.Slerp( Rotation, TargetRotation, RealTime.Delta * LerpSpeed );
-
 		camSetup.Position = Position;
 		camSetup.Rotation = Rotation;
 	}

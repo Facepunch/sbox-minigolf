@@ -8,47 +8,42 @@ namespace Facepunch.Minigolf;
 
 public partial class Game
 {
-	public override ICamera FindActiveCamera()
+	Entity StartCameraEntity { get; set; }
+
+	public override CameraMode FindActiveCamera()
 	{
-		// If the game hasn't started yet show our "cinematic" camera
+		// If the game hasn't started yet show our "cinematic" starting camera
 		if ( State == GameState.WaitingForPlayers )
 		{
-			// todo: cache ref and fuckin ICamera it up
-			var cameraEnt = Entity.All.OfType<StartCamera>().First();
-			if ( cameraEnt == null )
-				return null;
-
-			StaticCamera camera = new( cameraEnt.Position, cameraEnt.Rotation.Angles(), cameraEnt.FOV );
-			return camera;
+			if ( !StartCameraEntity.IsValid() ) StartCameraEntity = Entity.All.OfType<StartCamera>().First();
+			return StartCameraEntity.Components.Get<CameraMode>();
 		}
 
-		if ( FreeCamera != null )
-		{
-			if ( Local.Pawn is Ball balll && !balll.InPlay && !balll.Cupped && FreeCamTimeLeft > 0.0f )
+		// Pawn will only be set whilst we're in play ( e.g not spectating, or in between holes )
+		if ( Local.Pawn is Ball ball )
+        {
+			if ( FreeCamera != null )
 			{
-				return FreeCamera;
+				if ( !ball.InPlay && !ball.Cupped && FreeCamTimeLeft > 0.0f ) return FreeCamera;
+
+				// Bad conditions, set to null and fall through
+				FreeCamera = null;
 			}
 
-			FreeCamera = null;
+			if ( !ball.Cupped ) return ball.Camera;
+
+			// Their ball is cupped, lets do the hole end camera cinematic
+			if ( HoleEndCamera == null )
+			{
+				HoleEndCamera = new( Course.CurrentHole.GoalPosition );
+			}
+
+			return HoleEndCamera;
 		}
 
-		if ( Local.Pawn is Ball ball && !ball.Cupped )
-		{
-			HoleEndCamera = null;
-			BallCamera.Ball = ball;
-			return BallCamera;
-		}
+		// Must be a spectator ( no ball pawn )
 
-		if ( HoleEndCamera == null )
-		{
-			HoleEndCamera = new( Course.CurrentHole.GoalPosition );
-		}
-
-		return HoleEndCamera;
-
-		// if they have no pawn and the game is active, they must be a spectator
-
-		// HoleEndCamera used if there's no spectating going on I guess
+		// TODO: Actually spectate
 
 		return null;
 	}
@@ -59,7 +54,6 @@ public partial class Game
 	// 3. On return to lobby
 	HoleEndCamera HoleEndCamera;
 
-	public FollowBallCamera BallCamera = new();
 	public FreeCamera FreeCamera { get; set; }
 	public float FreeCamTimeLeft { get; set; } = 30.0f;
 
@@ -68,15 +62,5 @@ public partial class Game
 	{
 		if ( FreeCamera != null )
 			FreeCamTimeLeft -= RealTime.Delta;
-	}
-
-	public override CameraSetup BuildCamera(CameraSetup camSetup)
-	{
-		var cam = FindActiveCamera();
-		cam?.Build(ref camSetup);
-
-		PostCameraSetup(ref camSetup);
-
-		return camSetup;
 	}
 }

@@ -5,45 +5,46 @@ using Facepunch.Minigolf.Entities;
 
 namespace Facepunch.Minigolf;
 
-public class FollowBallCamera : ICamera
+public class FollowBallCamera : CameraMode
 {
-	public Angles Angles { get { return Rot.Angles(); } set { TargetAngles = value; } }
-	public float FieldOfView => 80.0f;
+	// should only need TargetRotation but I'm shit
+	public Angles TargetAngles;
+	Rotation TargetRotation;
 
-	Vector3 Pos;
-	Rotation Rot;
-
-	Angles TargetAngles;
-	Rotation TargetRot;
-
-	private float Distance;
-	private float TargetDistance;
+	private float Distance = 150.0f;
+	private float TargetDistance = 150.0f;
 
 	public float MinDistance => 100.0f;
 	public float MaxDistance => 300.0f;
 	public float DistanceStep => 10.0f;
 
-	public Ball Ball;
+	public Ball Ball => Entity as Ball;
 
-	public FollowBallCamera()
+	public override bool CanAddToEntity(Entity entity)
 	{
-		Distance = 150;
-		TargetDistance = Distance;
+		// Can only work on your balls
+		return entity is Ball;
 	}
 
 	public override void Build( ref CameraSetup camSetup )
 	{
+		base.Build( ref camSetup );
+		camSetup.Position = Position;
+		camSetup.Rotation = Rotation;
+	}
+
+	public override void Update()
+	{
 		if ( !Ball.IsValid() ) return;
 
-		Pos = Ball.Position + Vector3.Up * (24 + (Ball.CollisionBounds.Center.z * Ball.Scale));
-		TargetRot = Rotation.From( TargetAngles );
+		Position = Ball.Position + Vector3.Up * (24 + (Ball.CollisionBounds.Center.z * Ball.Scale));
+		TargetRotation = Rotation.From( TargetAngles );
 
-		Rot = Rotation.Slerp( Rot, TargetRot, RealTime.Delta * 10.0f );
+		Rotation = Rotation.Slerp( Rotation, TargetRotation, RealTime.Delta * 10.0f );
 		TargetDistance = TargetDistance.LerpTo( Distance, RealTime.Delta * 5.0f );
-		Pos += Rot.Backward * TargetDistance;
+		Position += Rotation.Backward * TargetDistance;
 
-		camSetup.Position = Pos;
-		camSetup.Rotation = Rot;
+		FieldOfView = 80.0f;
 	}
 
 	public override void BuildInput( InputBuilder input )

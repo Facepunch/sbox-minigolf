@@ -25,7 +25,7 @@ public partial class Ball
 
 		if ( ShotPower >= 0.01f && !input.Down( InputButton.Attack1 ) )
 		{
-			Game.Stroke( Game.Current.BallCamera.Angles.yaw, ShotPower );
+			Game.Stroke( Camera.Rotation.Yaw(), ShotPower );
 			LastShotPower = ShotPower;
 			ShotPower = 0;
 		}

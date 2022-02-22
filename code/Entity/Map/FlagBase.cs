@@ -6,13 +6,13 @@ namespace Facepunch.Minigolf.Entities;
 [Hammer.EditorModel( "models/minigolf_flag.vmdl" )]
 public partial class FlagBase : ModelEntity
 {
-	static readonly Model Model = Model.Load( "models/minigolf_flag.vmdl" );
+	static readonly Model FlagModel = Model.Load( "models/minigolf_flag.vmdl" );
 
 	public override void Spawn()
 	{
 		base.Spawn();
 
-		SetModel( Model );
+		Model = FlagModel;
 
 		MoveType = MoveType.None;
 		CollisionGroup = CollisionGroup.Never;

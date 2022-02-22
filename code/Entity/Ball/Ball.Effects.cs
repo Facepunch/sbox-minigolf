@@ -29,10 +29,10 @@ public partial class Ball
 		{
 			NameTag = new BallNameTag( this );
 
-			var backSceneObj = new SceneObject( model, Transform.Zero );
+			var backSceneObj = new SceneObject( Map.Scene, model, Transform.Zero );
 			backSceneObj.SetMaterialOverride( BallMaskFront );
 
-			var frontSceneObj = new SceneObject( model, Transform.Zero );
+			var frontSceneObj = new SceneObject( Map.Scene, model, Transform.Zero );
 			backSceneObj.SetMaterialOverride( BallMaskBack );
 
 			SceneObject.AddChild( "stencil_back", backSceneObj );
@@ -109,13 +109,10 @@ public partial class Ball
 			return;
 		}
 
-		if ( Game.Current.BallCamera is not FollowBallCamera camera )
-			return;
-
 		if ( !PowerArrow.IsValid() )
 			PowerArrow = new();
 
-		var direction = Angles.AngleVector( new Angles( 0, camera.Angles.yaw, 0 ) );
+		var direction = Angles.AngleVector( new Angles( 0, Camera.Rotation.Yaw(), 0 ) );
 
 		var ballRadius = CollisionBounds.Size.z / 2;
 		PowerArrow.Position = Position + Vector3.Down * ballRadius + Vector3.Up * 0.01f + direction * 5.0f;

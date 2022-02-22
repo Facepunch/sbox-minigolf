@@ -38,7 +38,7 @@ public partial class BallNameTag : WorldPanel
 
 		var DownTrace = Trace.Ray( Owner.Position, Owner.Position + Vector3.Down * 34.0f ).WithoutTags( "golf_ball" ).Run();
 
-		Position = DownTrace.EndPos + Vector3.Up * 0.1f;
+		Position = DownTrace.EndPosition + Vector3.Up * 0.1f;
 
 		var forward = Angles.AngleVector( CurrentDirection );
 		var right = Vector3.Cross( forward, Vector3.Up );

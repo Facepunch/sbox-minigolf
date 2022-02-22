@@ -2,25 +2,19 @@
 
 namespace Facepunch.Minigolf;
 
-public class StaticCamera : ICamera
+/// <summary>
+/// A simple camera component that turns any entity into a camera itself.
+/// </summary>
+public class StaticCamera : CameraMode
 {
-	public Vector3 Position;
-	public Rotation Rotation;
-	public float FieldOfView;
-
-    public StaticCamera( Vector3 position, Angles angles, float fov = 90 )
-    {
-        Position = new Vector3(position);
-        Rotation = Rotation.From(angles);
-        FieldOfView = fov;
-    }
-
 	public override void Build( ref CameraSetup camSetup )
 	{
-		camSetup.Position = Position;
-		camSetup.Rotation = Rotation;
-		camSetup.FieldOfView = FieldOfView;
+		base.Build( ref camSetup );
+		camSetup.Position = Entity.Position;
+		camSetup.Rotation = Entity.Rotation;
 	}
 
 	public override void BuildInput( InputBuilder builder ) { }
+
+    public override void Update() { }
 }

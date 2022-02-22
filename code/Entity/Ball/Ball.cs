@@ -12,15 +12,17 @@ public partial class Ball : ModelEntity
 	public Vector3 LastPosition { get; set; }
 	public Angles LastAngles { get; set; }
 
-	static readonly Model Model = Model.Load( "models/golf_ball.vmdl" );
+	static readonly Model GolfBallModel = Model.Load( "models/golf_ball.vmdl" );
 
 	public bool InWater = false;
+
+	[BindComponent] public FollowBallCamera Camera { get; }
 
 	public override void Spawn()
 	{
 		base.Spawn();
 
-		SetModel( Model );
+		Model = GolfBallModel;
 		SetupPhysicsFromModel( PhysicsMotionType.Static, false );
 
 		CollisionGroup = CollisionGroup.Debris;
@@ -35,8 +37,9 @@ public partial class Ball : ModelEntity
 
 	public override void ClientSpawn()
 	{
-		base.ClientSpawn();
+		Components.Create<FollowBallCamera>();
 
+		base.ClientSpawn();
 		CreateParticles();
 	}
 
@@ -70,6 +73,7 @@ public partial class Ball : ModelEntity
 	[ClientRpc]
 	protected void PlayerResetPosition( Vector3 position, Angles angles )
 	{
-		Game.Current.BallCamera.Angles = new (14, angles.yaw, 0);
+		Camera.TargetAngles = new(14, angles.yaw, 0);
+		Camera.Rotation = Rotation.From( 14, angles.yaw, 0 );
 	}
 }

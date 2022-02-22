@@ -79,7 +79,7 @@ public struct MoveHelper
 
 			if ( pm.Fraction > 0.0f )
 			{
-				Position = pm.EndPos + pm.Normal * 0.01f;
+				Position = pm.EndPosition + pm.Normal * 0.01f;
 
 				moveplanes.StartBump( Velocity );
 			}
@@ -88,7 +88,7 @@ public struct MoveHelper
 			{
 				HitWall = true;
 				WallEntity = pm.Entity;
-				HitWallPos = pm.EndPos;
+				HitWallPos = pm.EndPosition;
 			}
 
 			timeLeft -= timeLeft * pm.Fraction;
