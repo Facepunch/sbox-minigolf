@@ -19,7 +19,7 @@
 							},
 							{
 								from = "glass.vmat"
-								to = "materials/maps/tube/tube_glass_01a.vmat"
+								to = "materials/hats/hat_glass.vmat"
 							},
 						]
 						use_global_default = false
