@@ -97,8 +97,13 @@ metadata
 //
 // Facepunch.Minigolf.Entities.HoleSign
 //
-@PointClass base(BaseProperties_facepunch_minigolf) drawangles() iconsprite( "editor/snd_event.vmat" ) = minigolf_hole_sign : "Minigolf Sign Pole"
+@PointClass base(BaseProperties_facepunch_minigolf) drawangles() iconsprite( "materials/editor/hole_sign/hole_sign.vmat" ) = minigolf_hole_sign : "Minigolf Sign Pole"
 [
+	hole(string) : "Hole" :  : ""
+	par(string) : "Par" :  : ""
+
+	input DisplayText(void) : ""
+	input HideText(void) : ""
 ]
 
 //

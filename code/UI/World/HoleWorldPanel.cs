@@ -13,9 +13,9 @@ class HoleWorldPanel : WorldPanel
 
 		StyleSheet.Load( "/UI/Styles/HoleWorldPanel.scss" );
 
-		Add.Label( "Hole 1", "hole" );
-		Add.Label( "Coooool", "name" );
-		Add.Label( "Par 3", "par" );
+		//Add.Label( "Hole 1", "hole" );
+		//Add.Label( "Coooool", "name" );
+		//Add.Label( "Par 3", "par" );
 	}
 
 	public override void Tick()
