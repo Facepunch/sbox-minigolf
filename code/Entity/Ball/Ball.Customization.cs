@@ -9,6 +9,7 @@ public partial class Ball
     private int parthash = -1;
     private Particles trail;
     [Net] private AnimEntity hat { get; set; }
+	[Net] private Material Ballskin { get; set; }
 
     private AnimEntity localhat;
 
@@ -16,7 +17,8 @@ public partial class Ball
     {
         if (IsServer)
         {
-            if (hat.IsValid()) hat.Delete();
+			if ( Ballskin != null ) ;
+			if (hat.IsValid()) hat.Delete();
             if (trail != null) trail.Destroy();
         }
 
@@ -85,7 +87,14 @@ public partial class Ball
         {
             hat = new AnimEntity(hatpart.AssetPath);
         }
-    }
+
+		var skinpart = cc.GetEquippedPart( "Skins" );
+		if ( skinpart != null )
+		{
+			Ballskin = Material.Load( $"{skinpart.AssetPath}" );
+			SetBallMaterial( Ballskin );
+		}
+	}
 
     [ClientRpc]
     private void CleanupCustomizationOnClient()

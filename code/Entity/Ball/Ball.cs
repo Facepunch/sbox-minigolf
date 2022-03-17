@@ -23,6 +23,7 @@ public partial class Ball : ModelEntity
 		base.Spawn();
 
 		Model = GolfBallModel;
+
 		SetupPhysicsFromModel( PhysicsMotionType.Static, false );
 
 		CollisionGroup = CollisionGroup.Debris;
@@ -31,6 +32,7 @@ public partial class Ball : ModelEntity
 		Transmit = TransmitType.Always;
 
 		Predictable = false;
+
 
 		Tags.Add( "golf_ball" );
 	}
@@ -75,5 +77,11 @@ public partial class Ball : ModelEntity
 	{
 		Camera.TargetAngles = new(14, angles.yaw, 0);
 		Camera.Rotation = Rotation.From( 14, angles.yaw, 0 );
+	}
+
+	[ClientRpc]
+	public void SetBallMaterial( Material GolfBallMat )
+	{
+		SetMaterialOverride( GolfBallMat );
 	}
 }
