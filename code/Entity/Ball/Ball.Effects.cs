@@ -17,27 +17,13 @@ public partial class Ball
 
 	BallNameTag NameTag { get; set; }
 
-	Material BallMaskBack = Material.Load( "materials/minigolf.ball_mask_back.vmat" );
-	Material BallMaskFront = Material.Load( "materials/minigolf.ball_mask_front.vmat" );
-
 	public override void OnNewModel( Model model )
 	{
 		base.OnNewModel( model );
 
-
 		if ( IsClient )
 		{
 			NameTag = new BallNameTag( this );
-
-			var backSceneObj = new SceneObject( Map.Scene, model, Transform.Zero );
-			backSceneObj.SetMaterialOverride( BallMaskFront );
-
-			var frontSceneObj = new SceneObject( Map.Scene, model, Transform.Zero );
-			backSceneObj.SetMaterialOverride( BallMaskBack );
-
-			SceneObject.AddChild( "stencil_back", backSceneObj );
-			SceneObject.AddChild( "stencil_front", frontSceneObj );
-
 		}
 	}
 
