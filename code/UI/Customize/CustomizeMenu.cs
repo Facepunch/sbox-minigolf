@@ -44,30 +44,27 @@ public class CustomizeMenu : Panel
 		Build();
 	}
 
-	private Button activeButton;
 	private void Build()
 	{
 		TabsCanvas?.DeleteChildren( true );
 		PartsCanvas?.DeleteChildren( true );
 
-		var categories = Customization.Customize.Config.Categories;
+		var categories = Customize.Config.Categories;
+		var oneopen = false;
 		foreach ( var cat in categories )
 		{
-			var btn = new Button( cat.DisplayName );
+			var btn = new CustomizePartTab( cat );
 			TabsCanvas.AddChild( btn );
 
-			btn.AddEventListener( "onmousedown", () =>
-			 {
-				 activeButton?.RemoveClass( "active" );
-				 btn.AddClass( "active" );
-				 activeButton = btn;
-
-				 LoadParts( cat );
-			 } );
+			if ( !oneopen )
+			{
+				btn.Open();
+				oneopen = true;
+			}
 		}
 	}
 
-	private void LoadParts( CustomizationCategory category )
+	public void BuildParts( CustomizationCategory category )
 	{
 		PartsCanvas?.DeleteChildren( true );
 
