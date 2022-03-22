@@ -3,6 +3,7 @@ using Facepunch.Customization;
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
+using System;
 
 namespace Facepunch.Minigolf;
 
@@ -12,13 +13,9 @@ internal class CustomizeRenderScene : Panel
 	private ScenePanel ScenePanel;
 	private SceneWorld SceneWorld;
 	private Angles CameraAngle;
+	private SceneParticles Particles;
 
 	private int hash;
-
-	public CustomizeRenderScene()
-	{
-		Build();
-	}
 
 	public override void OnHotloaded()
 	{
@@ -31,9 +28,18 @@ internal class CustomizeRenderScene : Panel
 	{
 		base.Tick();
 
-		var cc = Local.Client.Components.Get<CustomizeComponent>();
-		var newhash = cc.GetPartsHash();
+		if ( Particles.IsValid() )
+		{
+			Particles.Simulate( RealTime.Delta );
 
+			var pos = new Vector3( -40f, MathF.Sin( Time.Now * 4f ) * 8f, -20f );
+			Particles.SetControlPoint( 0, pos );
+		}
+
+		var cc = Local.Client.Components.Get<CustomizeComponent>();
+		if ( cc == null ) return;
+
+		var newhash = cc.GetPartsHash();
 		if ( newhash == hash ) return;
 
 		hash = newhash;
@@ -43,6 +49,9 @@ internal class CustomizeRenderScene : Panel
 
 	private void Build()
 	{
+		Particles?.Delete();
+		Particles = null;
+
 		ScenePanel?.Delete();
 		ScenePanel = null;
 
@@ -74,9 +83,16 @@ internal class CustomizeRenderScene : Panel
 		}
 
 		var hatpart = cc.GetEquippedPart( "Hats" );
-		if( hatpart != null && !string.IsNullOrEmpty( hatpart.AssetPath ) )
+		if ( hatpart != null && !string.IsNullOrEmpty( hatpart.AssetPath ) )
 		{
 			new SceneModel( SceneWorld, hatpart.AssetPath, Transform.Zero.WithScale( 1 ).WithPosition( Vector3.Up * 2.35f ) );
+		}
+
+		var trailpart = cc.GetEquippedPart( "Trails" );
+		if ( trailpart != null && !string.IsNullOrEmpty( trailpart.AssetPath ) )
+		{
+			Particles = new SceneParticles( SceneWorld, trailpart.AssetPath );
+			Particles.SetControlPoint( 1, Vector3.One );
 		}
 	}
 
