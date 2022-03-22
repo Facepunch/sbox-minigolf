@@ -58,13 +58,6 @@ internal class CustomizeRenderScene : Panel
 		SceneWorld?.Delete();
 		SceneWorld = new SceneWorld();
 
-		new SceneLight( SceneWorld, Vector3.Up * 150.0f, 200.0f, Color.White * 5.0f );
-		new SceneLight( SceneWorld, Vector3.Up * 75.0f + Vector3.Forward * 100.0f, 200, Color.White * 15.0f );
-		new SceneLight( SceneWorld, Vector3.Up * 75.0f + Vector3.Backward * 100.0f, 200, Color.White * 15f );
-		new SceneLight( SceneWorld, Vector3.Up * 75.0f + Vector3.Left * 100.0f, 200, Color.White * 20.0f );
-		new SceneLight( SceneWorld, Vector3.Up * 75.0f + Vector3.Right * 100.0f, 200, Color.White * 15.0f );
-		new SceneLight( SceneWorld, Vector3.Up * 100.0f + Vector3.Up, 200, Color.Yellow * 15.0f );
-
 		var golfball = new SceneModel( SceneWorld, "models/golf_ball.vmdl", Transform.Zero.WithScale( 1 ) );
 
 		ScenePanel = Add.ScenePanel( SceneWorld, Vector3.Zero, Rotation.From( CameraAngle ), 75 );
@@ -73,6 +66,9 @@ internal class CustomizeRenderScene : Panel
 		ScenePanel.CameraPosition = golfball.Rotation.Forward * 16f + Vector3.Up * 3f;
 		ScenePanel.CameraRotation = Rotation.LookAt( golfball.Rotation.Backward ).RotateAroundAxis( Vector3.Forward, -90 );
 		CameraAngle = ScenePanel.CameraRotation.Angles();
+
+		new SceneLight( SceneWorld, ScenePanel.CameraPosition + Vector3.Up * 5 + Vector3.Right * 2, 200, Color.White );
+		new SceneLight( SceneWorld, Vector3.Down * 50 + Vector3.Left * 20, 200, Color.White.Darken( .25f ) );
 
 		var cc = Local.Client.Components.Get<CustomizeComponent>();
 		var skinpart = cc.GetEquippedPart( "Skins" );
