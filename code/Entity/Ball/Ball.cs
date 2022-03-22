@@ -79,9 +79,4 @@ public partial class Ball : ModelEntity
 		Camera.Rotation = Rotation.From( 14, angles.yaw, 0 );
 	}
 
-	[ClientRpc]
-	public void SetBallMaterial( Material GolfBallMat )
-	{
-		SetMaterialOverride( GolfBallMat );
-	}
 }
