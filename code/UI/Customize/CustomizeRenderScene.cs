@@ -3,7 +3,6 @@ using Facepunch.Customization;
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System;
 
 namespace Facepunch.Minigolf;
 
@@ -12,7 +11,6 @@ internal class CustomizeRenderScene : Panel
 
 	private ScenePanel ScenePanel;
 	private SceneWorld SceneWorld;
-	private SceneModel GolfBall;
 	private Angles CameraAngle;
 
 	private int hash;
@@ -34,20 +32,13 @@ internal class CustomizeRenderScene : Panel
 		base.Tick();
 
 		var cc = Local.Client.Components.Get<CustomizeComponent>();
-		var skinpart = cc.GetEquippedPart( "Skins" );
+		var newhash = cc.GetPartsHash();
 
-		// todo: hash, apply for all parts 
-		if ( skinpart == null ) return;
-
-		var newhash = skinpart.GetHashCode();
-		if ( hash == newhash ) return;
+		if ( newhash == hash ) return;
 
 		hash = newhash;
 
-		var skin = Material.Load( $"{skinpart.AssetPath}" );
-		GolfBall.SetMaterialOverride( skin );
-
-		Log.Info( "SET" );
+		Build();
 	}
 
 	private void Build()
@@ -58,8 +49,6 @@ internal class CustomizeRenderScene : Panel
 		SceneWorld?.Delete();
 		SceneWorld = new SceneWorld();
 
-		GolfBall = new SceneModel( SceneWorld, "models/golf_ball.vmdl", Transform.Zero.WithScale( 1 ) );
-
 		new SceneLight( SceneWorld, Vector3.Up * 150.0f, 200.0f, Color.White * 5.0f );
 		new SceneLight( SceneWorld, Vector3.Up * 75.0f + Vector3.Forward * 100.0f, 200, Color.White * 15.0f );
 		new SceneLight( SceneWorld, Vector3.Up * 75.0f + Vector3.Backward * 100.0f, 200, Color.White * 15f );
@@ -67,13 +56,28 @@ internal class CustomizeRenderScene : Panel
 		new SceneLight( SceneWorld, Vector3.Up * 75.0f + Vector3.Right * 100.0f, 200, Color.White * 15.0f );
 		new SceneLight( SceneWorld, Vector3.Up * 100.0f + Vector3.Up, 200, Color.Yellow * 15.0f );
 
+		var golfball = new SceneModel( SceneWorld, "models/golf_ball.vmdl", Transform.Zero.WithScale( 1 ) );
+
 		ScenePanel = Add.ScenePanel( SceneWorld, Vector3.Zero, Rotation.From( CameraAngle ), 75 );
 		ScenePanel.Style.Width = Length.Percent( 100 );
 		ScenePanel.Style.Height = Length.Percent( 100 );
-		ScenePanel.CameraPosition = GolfBall.Rotation.Forward * 10f;
-		ScenePanel.CameraRotation = Rotation.LookAt( GolfBall.Rotation.Backward ).RotateAroundAxis( Vector3.Forward, -90 );
-		//ScenePanel.CameraRotation = Rotation.From( 10, -62, 0 );
+		ScenePanel.CameraPosition = golfball.Rotation.Forward * 16f + Vector3.Up * 3f;
+		ScenePanel.CameraRotation = Rotation.LookAt( golfball.Rotation.Backward ).RotateAroundAxis( Vector3.Forward, -90 );
 		CameraAngle = ScenePanel.CameraRotation.Angles();
+
+		var cc = Local.Client.Components.Get<CustomizeComponent>();
+		var skinpart = cc.GetEquippedPart( "Skins" );
+		if ( skinpart != null && !string.IsNullOrEmpty( skinpart.AssetPath ) )
+		{
+			var skin = Material.Load( $"{skinpart.AssetPath}" );
+			golfball.SetMaterialOverride( skin );
+		}
+
+		var hatpart = cc.GetEquippedPart( "Hats" );
+		if( hatpart != null && !string.IsNullOrEmpty( hatpart.AssetPath ) )
+		{
+			new SceneModel( SceneWorld, hatpart.AssetPath, Transform.Zero.WithScale( 1 ).WithPosition( Vector3.Up * 2.35f ) );
+		}
 	}
 
 }

@@ -80,7 +80,6 @@ CustomizeMenu {
         }
 
         .render {
-            background-color: $dark-grey;
             flex-grow: 1;
             border-radius: 5px;
         }
@@ -88,8 +87,8 @@ CustomizeMenu {
 }
 
 CustomizePartIcon {
-    width: 116px;
-    height: 116px;
+    width: 115px;
+    height: 115px;
     padding: 8px;
 
     .inner {
