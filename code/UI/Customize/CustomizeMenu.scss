@@ -8,7 +8,7 @@ CustomizeMenu {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba( black .5 );
+    background-color: rgba( black .92 );
     backdrop-filter: blur(10px);
     pointer-events: none;
     transition: opacity .15s linear;
@@ -24,8 +24,13 @@ CustomizeMenu {
 
     .container {
         width: 80%;
-        height: 80%;
+        height: 70%;
         flex-direction: column;
+
+        .body {
+            flex-grow: 1;
+            flex-direction: row;
+        }
 
         .heading {
             display: none;
@@ -37,31 +42,31 @@ CustomizeMenu {
             text-shadow: 1px 1px 5px rgba(black, 0.8);
         }
 
-        .navbar {
-            flex-direction: row;
-            padding-left: 10px;
-
-            button {
-                padding: 10px 20px;
-                border-radius: 5px 5px 0 0;
-                cursor: pointer;
-                text-shadow: 1px 1px 5px rgba(black, 0.8);
-                font-size: 20px;
-                margin-right: 10px;
-                background-color: $dark-grey;
-                transition: all .15s ease-in;
-
-                &:hover, &.active {
-                    transform: scale(1.1);
-                    color: $primary;
-                }
-            }
-        }
-
         .content {
             flex-direction: column;
-            width: 40%;
+            width: 600px;
             margin-right: 10px;
+
+            .navbar {
+                flex-direction: row;
+                padding-left: 10px;
+
+                button {
+                    padding: 10px 20px;
+                    border-radius: 5px 5px 0 0;
+                    cursor: pointer;
+                    text-shadow: 1px 1px 5px rgba(black, 0.8);
+                    font-size: 20px;
+                    margin-right: 10px;
+                    background-color: $dark-grey;
+                    transition: all .15s ease-in;
+
+                    &:hover, &.active {
+                        transform: scale(1.1);
+                        color: $primary;
+                    }
+                }
+            }
 
             .parts {
                 flex-direction: row;
@@ -70,30 +75,6 @@ CustomizeMenu {
                 padding: 10px;
                 border-radius: 5px;
                 flex-grow: 1;
-                justify-content: space-between;
-
-                button {
-                    width: 100px;
-                    height: 100px;
-                    flex-basis: 1;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    justify-content: center;
-                    align-items: center;
-                    text-shadow: 1px 1px 5px rgba(black, 0.8);
-                    margin-bottom: 4px;
-                    margin-right: 4px;
-
-                    Label {
-                        position: absolute;
-                        bottom: 4px;
-                        left: 4px;
-                    }
-
-                    &.equipped {
-                        background-color: rgba($secondary .5);
-                    }
-                }
             }
         }
 
@@ -102,11 +83,48 @@ CustomizeMenu {
             flex-grow: 1;
             border-radius: 5px;
         }
+    }
+}
 
-        .body {
-            flex-grow: 1;
-            padding: 10px;
-            flex-direction: row;
+CustomizePartIcon {
+    width: 116px;
+    height: 116px;
+    padding: 8px;
+
+    .inner {
+        flex-grow: 1;
+        border-radius: 5px;
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        transition: all .15s ease-in;
+        box-shadow: 4px 4px 1px $dark-blue;
+
+        Label {
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            transition: all .05s linear;
+            font-size: 12px;
+        }
+
+        &:hover {
+            background-color: rgba($primary .5);
+            transform: scale(1.1);
+
+            Label {
+                left: 4px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    &.equipped .inner {
+        background-color: rgba($primary .5);
+        transform: scale(1.1);
+
+        Label {
+            left: 4px;
         }
     }
 }

@@ -9,97 +9,85 @@ namespace Facepunch.Minigolf;
 public class CustomizeMenu : Panel
 {
 
-    public Panel SidebarCanvas { get; set; }
-    public Panel ContentCanvas { get; set; }
+	public Panel TabsCanvas { get; set; }
+	public Panel PartsCanvas { get; set; }
 
-    public CustomizeMenu()
-    {
-        Customize.OnChanged += Build;
-    }
+	public CustomizeMenu()
+	{
+		Customize.OnChanged += Build;
+	}
 
-    public override void OnDeleted()
-    {
-        base.OnDeleted();
+	public override void OnDeleted()
+	{
+		base.OnDeleted();
 
-        Customize.OnChanged -= Build;
-    }
+		Customize.OnChanged -= Build;
+	}
 
-    private bool Open
-    {
-        get => HasClass("open");
-        set => SetClass("open", value);
-    }
+	private bool Open
+	{
+		get => HasClass( "open" );
+		set => SetClass( "open", value );
+	}
 
-    protected override void PostTemplateApplied()
-    {
-        base.PostTemplateApplied();
+	protected override void PostTemplateApplied()
+	{
+		base.PostTemplateApplied();
 
-        Build();
-    }
+		Build();
+	}
 
-    public override void OnHotloaded()
-    {
-        base.OnHotloaded();
+	public override void OnHotloaded()
+	{
+		base.OnHotloaded();
 
-        Build();
-    }
+		Build();
+	}
 
-    private Button activeButton;
-    private void Build()
-    {
-        SidebarCanvas?.DeleteChildren(true);
-        ContentCanvas?.DeleteChildren(true);
+	private Button activeButton;
+	private void Build()
+	{
+		TabsCanvas?.DeleteChildren( true );
+		PartsCanvas?.DeleteChildren( true );
 
-        var categories = Customization.Customize.Config.Categories;
-        foreach(var cat in categories)
-        {
-            var btn = new Button(cat.DisplayName);
-            SidebarCanvas.AddChild(btn);
+		var categories = Customization.Customize.Config.Categories;
+		foreach ( var cat in categories )
+		{
+			var btn = new Button( cat.DisplayName );
+			TabsCanvas.AddChild( btn );
 
-            btn.AddEventListener("onmousedown", () =>
-            {
-                activeButton?.RemoveClass("active");
-                btn.AddClass("active");
-                activeButton = btn;
+			btn.AddEventListener( "onmousedown", () =>
+			 {
+				 activeButton?.RemoveClass( "active" );
+				 btn.AddClass( "active" );
+				 activeButton = btn;
 
-                LoadParts(cat);
-            });
-        }
-    }
+				 LoadParts( cat );
+			 } );
+		}
+	}
 
-    private void LoadParts(CustomizationCategory category)
-    {
-        ContentCanvas?.DeleteChildren(true);
+	private void LoadParts( CustomizationCategory category )
+	{
+		PartsCanvas?.DeleteChildren( true );
 
-        var cfg = Customization.Customize.Config;
-        var parts = cfg.Parts.Where(x => x.CategoryId == category.Id);
+		var cfg = Customization.Customize.Config;
+		var parts = cfg.Parts.Where( x => x.CategoryId == category.Id );
 
-        foreach(var part in parts)
-        {
-            var btn = new Button(part.DisplayName);
-            ContentCanvas.AddChild(btn);
+		foreach ( var part in parts )
+		{
+			var btn = new CustomizePartIcon( part );
+			PartsCanvas.AddChild( btn );
+		}
+	}
 
-            var cust = Local.Client.Components.Get<CustomizeComponent>();
-            btn.SetClass("equipped", cust.IsEquipped(part));
-
-            btn.AddEventListener("onmousedown", () =>
-            {
-                cust.Equip(part);
-                LoadParts(category);
-            });
-        }
-
-		var autoflex = ContentCanvas.Add.Panel();
-		autoflex.Style.Set( "flex", "auto" );
-    }
-
-    [Event.BuildInput]
-    private void OnBuildInput(InputBuilder b)
-    {
-        if(b.Pressed(InputButton.Menu))
-        {
-            Open = !Open;
-        }
-    }
+	[Event.BuildInput]
+	private void OnBuildInput( InputBuilder b )
+	{
+		if ( b.Pressed( InputButton.Menu ) )
+		{
+			Open = !Open;
+		}
+	}
 
 }
