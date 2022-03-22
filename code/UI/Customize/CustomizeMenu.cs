@@ -88,6 +88,9 @@ public class CustomizeMenu : Panel
                 LoadParts(category);
             });
         }
+
+		var autoflex = ContentCanvas.Add.Panel();
+		autoflex.Style.Set( "flex", "auto" );
     }
 
     [Event.BuildInput]

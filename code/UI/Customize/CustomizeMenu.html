@@ -8,8 +8,11 @@
 
         <div class="body">
 
-            <div class="sidebar" @ref="SidebarCanvas"></div>
-            <div class="content" @ref="ContentCanvas"></div>
+            <div class="content">
+                <div class="navbar" @ref="SidebarCanvas"></div>
+                <div class="parts" @ref="ContentCanvas"></div>
+            </div>
+            <div class="render" @ref="RenderCanvas"></div>
 
         </div>
 

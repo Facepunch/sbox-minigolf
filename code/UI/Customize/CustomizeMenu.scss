@@ -23,11 +23,12 @@ CustomizeMenu {
     }
 
     .container {
-        width: 50%;
-        height: 70%;
+        width: 80%;
+        height: 80%;
         flex-direction: column;
 
         .heading {
+            display: none;
             color: white;
             font-family: $font-title;
             font-size: 32px;
@@ -36,49 +37,76 @@ CustomizeMenu {
             text-shadow: 1px 1px 5px rgba(black, 0.8);
         }
 
-        .sidebar {
-            width: 240px;
-            flex-direction: column;
-            margin-right: 10px;
+        .navbar {
+            flex-direction: row;
+            padding-left: 10px;
 
             button {
-                padding: 10px;
-                border-radius: 5px;
+                padding: 10px 20px;
+                border-radius: 5px 5px 0 0;
                 cursor: pointer;
                 text-shadow: 1px 1px 5px rgba(black, 0.8);
+                font-size: 20px;
+                margin-right: 10px;
+                background-color: $dark-grey;
+                transition: all .15s ease-in;
 
-                &:hover {
-                    background-color: rgba($primary .1);
-                }
-
-                &.active {
-                    background-color: rgba($primary .5);
+                &:hover, &.active {
+                    transform: scale(1.1);
+                    color: $primary;
                 }
             }
         }
 
         .content {
             flex-direction: column;
-            flex-grow: 1;
+            width: 40%;
+            margin-right: 10px;
 
-            button {
+            .parts {
+                flex-direction: row;
+                flex-wrap: wrap;
+                background-color: $dark-grey;
                 padding: 10px;
                 border-radius: 5px;
-                cursor: pointer;
-                text-shadow: 1px 1px 5px rgba(black, 0.8);
+                flex-grow: 1;
+                justify-content: space-between;
 
-                &.equipped {
-                    background-color: rgba($secondary .5);
+                button {
+                    width: 100px;
+                    height: 100px;
+                    flex-basis: 1;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    justify-content: center;
+                    align-items: center;
+                    text-shadow: 1px 1px 5px rgba(black, 0.8);
+                    margin-bottom: 4px;
+                    margin-right: 4px;
+
+                    Label {
+                        position: absolute;
+                        bottom: 4px;
+                        left: 4px;
+                    }
+
+                    &.equipped {
+                        background-color: rgba($secondary .5);
+                    }
                 }
             }
         }
 
+        .render {
+            background-color: black;
+            flex-grow: 1;
+            border-radius: 5px;
+        }
+
         .body {
-            background-color: rgba($dark-grey, 0.9);
-            box-shadow: 0 5px 20px rgba(#000, 0.5);
-            border-radius: 8px;
             flex-grow: 1;
             padding: 10px;
+            flex-direction: row;
         }
     }
 }
