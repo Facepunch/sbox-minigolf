@@ -79,7 +79,7 @@ CustomizeMenu {
         }
 
         .render {
-            background-color: black;
+            background-color: $dark-grey;
             flex-grow: 1;
             border-radius: 5px;
         }
@@ -126,5 +126,14 @@ CustomizePartIcon {
         Label {
             left: 4px;
         }
+    }
+}
+
+CustomizeRenderScene {
+    border-radius: 5px;
+    padding: 10px;
+
+    ScenePanel {
+        border-radius: 5px;
     }
 }
