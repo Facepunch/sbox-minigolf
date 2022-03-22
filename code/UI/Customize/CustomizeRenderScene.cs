@@ -13,7 +13,7 @@ internal class CustomizeRenderScene : Panel
 	private ScenePanel ScenePanel;
 	private SceneWorld SceneWorld;
 	private Angles CameraAngle;
-	private SceneParticles Particles;
+	//private SceneParticles Particles;
 
 	private int hash;
 
@@ -28,13 +28,13 @@ internal class CustomizeRenderScene : Panel
 	{
 		base.Tick();
 
-		if ( Particles.IsValid() )
-		{
-			Particles.Simulate( RealTime.Delta );
+		//if ( Particles.IsValid() )
+		//{
+		//	Particles.Simulate( RealTime.Delta );
 
-			var pos = new Vector3( -40f, MathF.Sin( Time.Now * 4f ) * 8f, -20f );
-			Particles.SetControlPoint( 0, pos );
-		}
+		//	var pos = new Vector3( -40f, MathF.Sin( Time.Now * 4f ) * 8f, -20f );
+		//	Particles.SetControlPoint( 0, pos );
+		//}
 
 		var cc = Local.Client.Components.Get<CustomizeComponent>();
 		if ( cc == null ) return;
@@ -49,8 +49,8 @@ internal class CustomizeRenderScene : Panel
 
 	private void Build()
 	{
-		Particles?.Delete();
-		Particles = null;
+		//Particles?.Delete();
+		//Particles = null;
 
 		ScenePanel?.Delete();
 		ScenePanel = null;
@@ -91,8 +91,8 @@ internal class CustomizeRenderScene : Panel
 		var trailpart = cc.GetEquippedPart( "Trails" );
 		if ( trailpart != null && !string.IsNullOrEmpty( trailpart.AssetPath ) )
 		{
-			Particles = new SceneParticles( SceneWorld, trailpart.AssetPath );
-			Particles.SetControlPoint( 1, Vector3.One );
+			//Particles = new SceneParticles( SceneWorld, trailpart.AssetPath );
+			//Particles.SetControlPoint( 1, Vector3.One );
 		}
 	}
 
