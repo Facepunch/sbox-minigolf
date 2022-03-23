@@ -4,6 +4,7 @@ using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using System;
+using System.Linq;
 
 namespace Facepunch.Minigolf;
 
@@ -13,7 +14,6 @@ internal class CustomizeRenderScene : Panel
 	private ScenePanel ScenePanel;
 	private SceneWorld SceneWorld;
 	private Angles CameraAngle;
-	//private SceneParticles Particles;
 
 	private int hash;
 
@@ -28,13 +28,17 @@ internal class CustomizeRenderScene : Panel
 	{
 		base.Tick();
 
-		//if ( Particles.IsValid() )
-		//{
-		//	Particles.Simulate( RealTime.Delta );
+		if ( SceneWorld.IsValid() )
+		{
+			var trail = SceneWorld.SceneObjects.FirstOrDefault( x => x is SceneParticles ) as SceneParticles;
+			if ( trail.IsValid() )
+			{
+				trail.Simulate( RealTime.Delta );
 
-		//	var pos = new Vector3( -40f, MathF.Sin( Time.Now * 4f ) * 8f, -20f );
-		//	Particles.SetControlPoint( 0, pos );
-		//}
+				var pos = new Vector3( MathF.Cos( Time.Now * 4f ) * 12f, MathF.Sin( Time.Now * 4f ) * 8f, -5f );
+				trail.SetControlPoint( 0, pos );
+			}
+		}
 
 		var cc = Local.Client.Components.Get<CustomizeComponent>();
 		if ( cc == null ) return;
@@ -49,21 +53,19 @@ internal class CustomizeRenderScene : Panel
 
 	private void Build()
 	{
-		//Particles?.Delete();
-		//Particles = null;
-
 		ScenePanel?.Delete();
 		ScenePanel = null;
 
 		SceneWorld?.Delete();
 		SceneWorld = new SceneWorld();
 
-		var golfball = new SceneModel( SceneWorld, "models/golf_ball.vmdl", Transform.Zero.WithScale( 1 ) );
+		var modelscale = 3f;
+		var golfball = new SceneModel( SceneWorld, "models/golf_ball.vmdl", Transform.Zero.WithScale( modelscale ) );
 
 		ScenePanel = Add.ScenePanel( SceneWorld, Vector3.Zero, Rotation.From( CameraAngle ), 75 );
 		ScenePanel.Style.Width = Length.Percent( 100 );
 		ScenePanel.Style.Height = Length.Percent( 100 );
-		ScenePanel.CameraPosition = golfball.Rotation.Forward * 16f + Vector3.Up * 3f;
+		ScenePanel.CameraPosition = golfball.Rotation.Forward * 32f + Vector3.Up * 3f;
 		ScenePanel.CameraRotation = Rotation.LookAt( golfball.Rotation.Backward ).RotateAroundAxis( Vector3.Forward, -90 );
 		CameraAngle = ScenePanel.CameraRotation.Angles();
 
@@ -81,14 +83,13 @@ internal class CustomizeRenderScene : Panel
 		var hatpart = cc.GetEquippedPart( "Hats" );
 		if ( hatpart != null && !string.IsNullOrEmpty( hatpart.AssetPath ) )
 		{
-			new SceneModel( SceneWorld, hatpart.AssetPath, Transform.Zero.WithScale( 1 ).WithPosition( Vector3.Up * 2.35f ) );
+			new SceneModel( SceneWorld, hatpart.AssetPath, Transform.Zero.WithScale( modelscale ).WithPosition( Vector3.Up * 2.35f * modelscale ) );
 		}
 
 		var trailpart = cc.GetEquippedPart( "Trails" );
 		if ( trailpart != null && !string.IsNullOrEmpty( trailpart.AssetPath ) )
 		{
-			//Particles = new SceneParticles( SceneWorld, trailpart.AssetPath );
-			//Particles.SetControlPoint( 1, Vector3.One );
+			new SceneParticles( SceneWorld, trailpart.AssetPath );
 		}
 	}
 
