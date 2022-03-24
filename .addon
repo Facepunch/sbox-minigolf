@@ -13,5 +13,16 @@
   ],
   "HasCode": true,
   "CodePath": "code",
-  "RootNamespace": "Minigolf"
+  "RootNamespace": "Minigolf",
+  "Metadata": {
+    "MapList": [
+      "facepunch.minigolf_green",
+      "facepunch.minigolf_funland"
+    ],
+    "MinPlayers": 1,
+    "MapSelect": 3,
+    "RankType": 2,
+    "PerMapRanking": true,
+    "LeaderboardType": 2
+  }
 }
