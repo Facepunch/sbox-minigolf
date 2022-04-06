@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System.ComponentModel.DataAnnotations;
 
 namespace Facepunch.Minigolf.Entities;
 
@@ -8,8 +9,8 @@ namespace Facepunch.Minigolf.Entities;
 [Library( "minigolf_hole_goal" )]
 [Hammer.Solid]
 [Hammer.AutoApplyMaterial]
-[Hammer.EntityTool( "Hole goal", "Minigolf" )]
 [Hammer.VisGroup( Hammer.VisGroup.Trigger )]
+[Display( Name = "Minigolf Hole Goal" )]
 public partial class HoleGoal : ModelEntity
 {
 	/// <summary>

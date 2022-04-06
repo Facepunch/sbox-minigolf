@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Sandbox;
 
 namespace Facepunch.Minigolf.Entities;
@@ -10,7 +11,7 @@ namespace Facepunch.Minigolf.Entities;
 [Hammer.Solid]
 [Hammer.DrawAngles( nameof( Direction ) )]
 [Hammer.AutoApplyMaterial]
-[Hammer.EntityTool( "Speed boost", "Minigolf" )]
+[Display( Name = "Minigolf Speed Boost" )]
 public partial class SpeedBoost : ModelEntity
 {
 	/// <summary>

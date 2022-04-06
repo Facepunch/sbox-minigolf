@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Sandbox;
 
 namespace Facepunch.Minigolf.Entities;
@@ -7,6 +8,7 @@ namespace Facepunch.Minigolf.Entities;
 [Hammer.Solid]
 [Hammer.AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_out_of_bounds.vmat" )]
 [Hammer.VisGroup( Hammer.VisGroup.Trigger )]
+[Display( Name = "Minigolf Hole Out Of Boundaries" )]
 public partial class OutOfBoundsArea : ModelEntity
 {
 	/// <summary>

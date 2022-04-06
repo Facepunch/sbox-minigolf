@@ -1,9 +1,11 @@
 ﻿using Sandbox;
+using System.ComponentModel.DataAnnotations;
 
 namespace Facepunch.Minigolf.Entities;
 
 [Library( "minigolf_hole_camera", Description = "Minigolf Hole Camera" )]
 [Hammer.EditorModel( "models/editor/camera.vmdl" )]
+[Display( Name = "Minigolf Hole Camera" )]
 public partial class HoleCamera : Entity
 {
 	[Property( "hole_number", "Hole Number", "Which hole this camera is for" ), Net]
@@ -33,6 +35,7 @@ public partial class HoleCamera : Entity
 [Library( "minigolf_start_camera", Description = "Minigolf Start Camera" )]
 [Hammer.EditorModel( "models/editor/camera.vmdl" )]
 [Hammer.FrustumBoundless( "FOV", "ZNear", "ZFar" )]
+[Display( Name = "Minigolf Start Camera" )]
 public partial class StartCamera : Entity
 {
 	[Property( "FOV", "Field of view" ), Net]

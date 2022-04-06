@@ -21,12 +21,6 @@ partial class Game
 	[Net] public float ReturnToLobbyTime { get; private set; }
 	[Net] public int LobbyCount { get; set; }
 
-	[Event.Tick]
-	public void UpdateLobbyCount()
-	{
-		LobbyCount = Global.Lobby.MemberCount;
-	}
-
 	public void OnStateChanged( GameState oldState, GameState newState )
 	{
 		Event.Run( "minigolf.state.changed", newState );

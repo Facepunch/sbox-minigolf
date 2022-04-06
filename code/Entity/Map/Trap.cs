@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Facepunch.Minigolf.Entities;
 
@@ -7,6 +8,7 @@ namespace Facepunch.Minigolf.Entities;
 [Hammer.Solid]
 [Hammer.AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_trap.vmat" )]
 [Hammer.VisGroup( Hammer.VisGroup.Trigger )]
+[Display( Name = "Minigolf Trap" )]
 public partial class Trap : ModelEntity
 {
 

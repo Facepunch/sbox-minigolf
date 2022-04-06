@@ -1,4 +1,6 @@
-﻿using Sandbox;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using Sandbox;
 
 namespace Facepunch.Minigolf.Entities;
 
@@ -8,7 +10,7 @@ namespace Facepunch.Minigolf.Entities;
 [Library( "minigolf_ball_spawnpoint" )]
 [Hammer.DrawAngles]
 [Hammer.EditorModel( "models/golf_ball.vmdl" )]
-[Hammer.EntityTool( "Ball spawn point", "Minigolf" )]
+[Display( Name = "Minigolf Ball Spawnpoint" )]
 public partial class BallSpawnpoint : Entity
 {
 	/// <summary>
