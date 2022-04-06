@@ -14,15 +14,32 @@
 ]
 
 //
-// Facepunch.Minigolf.Entities.BallSpawnpoint
+// MiniProp
 //
-@PointClass base(BaseProperties_facepunch_minigolf) drawangles() editormodel( "models/golf_ball.vmdl" ) 
+@PointClass base(BaseProperties_facepunch_minigolf) tags( SupportsSolids ) model() 
 metadata
 {
-	entity_tool_name = "Ball spawn point"
+	entity_tool_name = "Minigolf Prop"
 	entity_tool_group = "Minigolf"
+	entity_tool_tip = "A model or Mesh that can be set to pass the camera through it."
 }
-= minigolf_ball_spawnpoint : "Where the ball spawns, also defines the hole name and par."
+= minigolf_prop : ""
+[
+	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
+	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
+	bodygroups(bodygroupchoices) { group = "Rendering" hide_when_solid = true } : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
+	no_camera_collide(boolean) : "No Camera Collide" : 0 : "The Unicycle camera will maintain its position when touching this prop"
+	camera_fade(boolean) : "Camera Fade" : 0 : "This prop will fade out when it's between the player and the camera"
+	solid(boolean) : "Solid" : 1 : ""
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// Facepunch.Minigolf.Entities.BallSpawnpoint
+//
+@PointClass base(BaseProperties_facepunch_minigolf) drawangles() editormodel( "models/golf_ball.vmdl" ) = minigolf_ball_spawnpoint : "Where the ball spawns, also defines the hole name and par."
 [
 	holenumber(integer) : "Hole Number" : 0 : "What hole number this spawnpoint belongs to."
 	holename(string) : "Hole Name" : "Untitled Hole" : "The name of this hole, this is displayed in-game."
@@ -53,7 +70,7 @@ metadata
 //
 // Facepunch.Minigolf.Entities.FlagBase
 //
-@PointClass base(BaseProperties_facepunch_minigolf) editormodel( "models/minigolf_flag.vmdl" ) = minigolf_flag_base : "Minigolf Flag Base"
+@PointClass base(BaseProperties_facepunch_minigolf) editormodel( "models/minigolf_flag.vmdl" ) = minigolf_flag_base : ""
 [
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
@@ -83,8 +100,6 @@ metadata
 metadata
 {
 	auto_apply_material = "materials/tools/toolstrigger.vmat"
-	entity_tool_name = "Hole goal"
-	entity_tool_group = "Minigolf"
 }
 = minigolf_hole_goal : "Minigolf hole goal trigger"
 [
@@ -129,8 +144,6 @@ metadata
 metadata
 {
 	auto_apply_material = "materials/tools/toolstrigger.vmat"
-	entity_tool_name = "Speed boost"
-	entity_tool_group = "Minigolf"
 }
 = minigolf_speed_boost : "A trigger brush that applies a constant velocity to golf balls."
 [

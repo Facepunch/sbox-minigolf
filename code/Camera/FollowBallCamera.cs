@@ -1,5 +1,6 @@
 using Sandbox;
 using System;
+using System.Collections.Generic;
 
 using Facepunch.Minigolf.Entities;
 
@@ -7,6 +8,8 @@ namespace Facepunch.Minigolf;
 
 public class FollowBallCamera : CameraMode
 {
+	private List<MiniProp> viewblockers = new();
+
 	// should only need TargetRotation but I'm shit
 	public Angles TargetAngles;
 	Rotation TargetRotation;
@@ -37,6 +40,8 @@ public class FollowBallCamera : CameraMode
 	{
 		if ( !Ball.IsValid() ) return;
 
+		UpdateViewBlockers( Ball );
+
 		Position = Ball.Position + Vector3.Up * (24 + (Ball.CollisionBounds.Center.z * Ball.Scale));
 		TargetRotation = Rotation.From( TargetAngles );
 
@@ -45,6 +50,23 @@ public class FollowBallCamera : CameraMode
 		Position += Rotation.Backward * TargetDistance;
 
 		FieldOfView = 80.0f;
+
+		var center = Ball.Position + Vector3.Up * 80;
+		var distance = 150.0f * Ball.Scale;
+		var targetPos = center + Input.Rotation.Forward * -distance;
+
+		var tr = Trace.Ray( center, targetPos )
+			.Ignore( Ball )
+			.Radius( 8 )
+			.Run();
+
+		var endpos = tr.EndPosition;
+
+		if ( tr.Entity is MiniProp ufp )
+		{
+			if ( ufp.NoCameraCollide )
+				endpos = targetPos;
+		}
 	}
 
 	public override void BuildInput( InputBuilder input )
@@ -64,5 +86,25 @@ public class FollowBallCamera : CameraMode
 
 		if ( !input.Down( InputButton.Attack1 ) )
 			TargetAngles.pitch = TargetAngles.pitch.Clamp( 0, 89 );
+	}
+
+	private void UpdateViewBlockers( Ball pawn )
+	{
+		foreach ( var ent in viewblockers )
+		{
+			ent.BlockingView = false;
+		}
+		viewblockers.Clear();
+
+		var traces = Trace.Sphere( 3f, CurrentView.Position, pawn.Position ).RunAll();
+
+		if ( traces == null ) return;
+
+		foreach ( var tr in traces )
+		{
+			if ( tr.Entity is not MiniProp prop ) continue;
+			prop.BlockingView = true;
+			viewblockers.Add( prop );
+		}
 	}
 }
