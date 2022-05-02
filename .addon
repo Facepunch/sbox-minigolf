@@ -17,12 +17,15 @@
   "Metadata": {
     "MapList": [
       "facepunch.minigolf_green",
-      "facepunch.minigolf_funland"
+      "facepunch.minigolf_funland",
+      "facepunch.minigolf_build"
     ],
     "MinPlayers": 1,
     "MapSelect": 3,
     "RankType": 2,
     "PerMapRanking": true,
-    "LeaderboardType": 2
+    "LeaderboardType": 2,
+    "GameNetworkType": 0,
+    "MaxPlayers": 0
   }
 }
