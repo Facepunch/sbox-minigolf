@@ -6,7 +6,7 @@
 [Library( "minigolf_hole_goal" )]
 [HammerEntity, Solid, AutoApplyMaterial, VisGroup( VisGroup.Trigger )]
 [Title( "Hole Goal" )]
-public partial class HoleGoal : ModelEntity
+public partial class HoleGoal : BaseTrigger
 {
 	/// <summary>
 	/// Which hole this hole is on.
@@ -19,12 +19,6 @@ public partial class HoleGoal : ModelEntity
 	public override void Spawn()
 	{
 		base.Spawn();
-
-		SetupPhysicsFromModel(PhysicsMotionType.Static);
-		CollisionGroup = CollisionGroup.Trigger;
-		EnableSolidCollisions = false;
-		EnableTouch = true;
-		EnableDrawing = true;
 		Transmit = TransmitType.Always;
 	}
 
@@ -39,7 +33,7 @@ public partial class HoleGoal : ModelEntity
 		HoleParticle.SetPositionComponent( 21, 2, number % 10 );
 
 		number /= 10;
-		HoleParticle.SetPositionComponent(21, 1, number % 10 );
+		HoleParticle.SetPositionComponent( 21, 1, number % 10 );
 	}
 
 	public override void StartTouch( Entity other )

@@ -7,25 +7,13 @@
 [HammerEntity, Solid, AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_hole_bounds.vmat" )]
 [VisGroup( VisGroup.Trigger )]
 [Title( "Hole Bounds" )]
-public partial class HoleBounds : ModelEntity
+public partial class HoleBounds : BaseTrigger
 {
 	/// <summary>
 	/// Which hole this hole is on.
 	/// </summary>
 	[Property]
 	public int HoleNumber { get; set; }
-
-	public override void Spawn()
-	{
-		base.Spawn();
-
-		SetupPhysicsFromModel( PhysicsMotionType.Static );
-		CollisionGroup = CollisionGroup.Trigger;
-		EnableSolidCollisions = false;
-		EnableTouch = true;
-
-		Transmit = TransmitType.Never;
-	}
 
 	public override void StartTouch(Entity other)
 	{

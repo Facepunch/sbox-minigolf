@@ -3,7 +3,7 @@
 [Library( "minigolf_out_of_bounds" )]
 [HammerEntity, Solid, AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_out_of_bounds.vmat" ), VisGroup( VisGroup.Trigger )]
 [Title( "Hole Out Of Bounds" )]
-public partial class OutOfBoundsArea : ModelEntity
+public partial class OutOfBoundsArea : BaseTrigger
 {
 	/// <summary>
 	/// When the ball enters this out of bounds area, how much time until we declare out of bounds?
@@ -13,18 +13,6 @@ public partial class OutOfBoundsArea : ModelEntity
 
 	public IEnumerable<Ball> TouchingBalls => touchingBalls;
 	private readonly List<Ball> touchingBalls = new();
-
-	public override void Spawn()
-	{
-		base.Spawn();
-
-		SetupPhysicsFromModel( PhysicsMotionType.Static );
-		CollisionGroup = CollisionGroup.Trigger;
-		EnableSolidCollisions = false;
-		EnableTouch = true;
-
-		Transmit = TransmitType.Never;
-	}
 
 	public override void StartTouch( Entity other )
 	{
