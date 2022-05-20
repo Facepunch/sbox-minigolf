@@ -1,16 +1,11 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Sandbox;
-
-namespace Facepunch.Minigolf.Entities;
+﻿namespace Facepunch.Minigolf.Entities;
 
 /// <summary>
 /// Where the ball spawns, also defines the hole name and par.
 /// </summary>
-[Library( "minigolf_ball_spawnpoint" )]
-[Hammer.DrawAngles]
-[Hammer.EditorModel( "models/golf_ball.vmdl" )]
-[Display( Name = "Minigolf Ball Spawnpoint" )]
+[Library( "minigolf_ball_spawnpoint" ), HammerEntity]
+[EditorModel( "models/golf_ball.vmdl" ), DrawAngles]
+[Title( "Ball Spawnpoint" )]
 public partial class BallSpawnpoint : Entity
 {
 	/// <summary>

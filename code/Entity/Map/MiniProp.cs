@@ -1,17 +1,11 @@
-﻿using Sandbox;
-using System.Linq;
-using Hammer;
-using Sandbox.Internal;
-using System.ComponentModel.DataAnnotations;
-
-[Model]
-[SupportsSolid]
+﻿/// <summary>
+/// A model or Mesh that can be set to pass the camera through it.
+/// </summary>
 [Library( "minigolf_prop" )]
-[EntityTool( "Minigolf Prop", "Minigolf", "A model or Mesh that can be set to pass the camera through it." )]
-[Display( Name = "Minigolf Prop" )]
+[HammerEntity, Model, SupportsSolid]
+[Title( "Prop (Minigolf Specific)" )]
 internal partial class MiniProp : ModelEntity
 {
-
 	[Net, Property("No Camera Collide", "The Unicycle camera will maintain its position when touching this prop")]
 	public bool NoCameraCollide { get; set; }
 	[Net, Property( "Camera fade", "This prop will fade out when it's between the player and the camera" )]

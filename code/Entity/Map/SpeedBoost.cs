@@ -1,17 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Sandbox;
-
-namespace Facepunch.Minigolf.Entities;
+﻿namespace Facepunch.Minigolf.Entities;
 
 /// <summary>
 /// A trigger brush that applies a constant velocity to golf balls.
 /// </summary>
 [Library( "minigolf_speed_boost" )]
-[Hammer.Solid]
-[Hammer.DrawAngles( nameof( Direction ) )]
-[Hammer.AutoApplyMaterial]
-[Display( Name = "Minigolf Speed Boost" )]
+[HammerEntity, Solid, DrawAngles( nameof( Direction ) ), AutoApplyMaterial]
+[Title( "Speed Boost" )]
 public partial class SpeedBoost : ModelEntity
 {
 	/// <summary>

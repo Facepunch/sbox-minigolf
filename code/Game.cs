@@ -1,4 +1,14 @@
-using Sandbox;
+global using Sandbox;
+global using Sandbox.UI;
+global using Sandbox.UI.Construct;
+global using Sandbox.Component;
+global using SandboxEditor;
+
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.ComponentModel;
+global using System.Threading.Tasks;
 
 using Facepunch.Minigolf.Entities;
 using Facepunch.Minigolf.UI;
@@ -44,7 +54,7 @@ public partial class Game : Sandbox.Game
 		if ( State == GameState.Playing )
 		{
 			cl.SetValue( "late", true );
-			ChatBox.AddInformation( To.Everyone, $"{ cl.Name } has joined late, they will not be eligible for scoring.", $"avatar:{ cl.PlayerId }" );
+			Facepunch.Minigolf.UI.ChatBox.AddInformation( To.Everyone, $"{ cl.Name } has joined late, they will not be eligible for scoring.", $"avatar:{ cl.PlayerId }" );
 
 			// Just give them shitty scores on each hole for now
 			for ( int i = 0; i < Course._currentHole; i++ )
@@ -52,7 +62,7 @@ public partial class Game : Sandbox.Game
 		}
 		else
 		{
-			ChatBox.AddInformation( To.Everyone, $"{ cl.Name } has joined", $"avatar:{ cl.PlayerId }" );
+			Facepunch.Minigolf.UI.ChatBox.AddInformation( To.Everyone, $"{ cl.Name } has joined", $"avatar:{ cl.PlayerId }" );
 		}
 	}
 

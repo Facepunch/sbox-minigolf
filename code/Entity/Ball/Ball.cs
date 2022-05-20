@@ -1,10 +1,8 @@
-﻿using Sandbox;
-
-namespace Facepunch.Minigolf.Entities;
+﻿namespace Facepunch.Minigolf.Entities;
 
 public partial class Ball : ModelEntity
 {
-	[ServerVar( "minigolf_ball_debug" )]
+	[ConVar.Server( "minigolf_ball_debug" )]
 	public static bool Debug { get; set; } = false;
 	[Net] public bool InPlay { get; set; } = false;
 	[Net] public bool Cupped { get; set; } = false;
@@ -32,7 +30,6 @@ public partial class Ball : ModelEntity
 		Transmit = TransmitType.Always;
 
 		Predictable = false;
-
 
 		Tags.Add( "golf_ball" );
 	}

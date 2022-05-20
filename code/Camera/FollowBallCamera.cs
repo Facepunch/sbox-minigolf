@@ -79,12 +79,12 @@ public class FollowBallCamera : CameraMode
 
 		TargetAngles.yaw += input.AnalogLook.yaw;
 
-		if ( !input.Down( InputButton.Attack1 ) )
+		if ( !input.Down( InputButton.PrimaryAttack ) )
 			TargetAngles.pitch += input.AnalogLook.pitch;
 
 		TargetAngles = TargetAngles.Normal;
 
-		if ( !input.Down( InputButton.Attack1 ) )
+		if ( !input.Down( InputButton.PrimaryAttack ) )
 			TargetAngles.pitch = TargetAngles.pitch.Clamp( 0, 89 );
 	}
 

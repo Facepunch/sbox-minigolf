@@ -138,13 +138,13 @@ partial class Game
 		Client.All.ToList().ForEach( cl => cl.Kick() );
 	}
 
-	[AdminCmd( "minigolf_force_start" )]
+	[ConCmd.Admin( "minigolf_force_start" )]
 	public static void ForceStart()
 	{
 		Current.StartGame();
 	}
 
-	[ServerCmd( "minigolf_reset_ball" )]
+	[ConCmd.Server( "minigolf_reset_ball" )]
 	public static void ResetBall()
 	{
 		var client = ConsoleSystem.Caller;
@@ -154,7 +154,7 @@ partial class Game
 		Current.ResetBall( client );
 	}
 
-	[AdminCmd( "minigolf_skip_to" )]
+	[ConCmd.Admin( "minigolf_skip_to" )]
 	public static void SkipToHole( int hole )
 	{
 		Current.Course._currentHole = hole;

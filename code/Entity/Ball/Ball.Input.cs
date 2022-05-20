@@ -17,13 +17,13 @@ public partial class Ball
 		if ( InPlay )
 			return;
 
-		if ( input.Down( InputButton.Attack1 ) )
+		if ( input.Down( InputButton.PrimaryAttack ) )
 		{
 			float delta = input.AnalogLook.pitch * RealTime.Delta;
 			ShotPower = Math.Clamp( ShotPower - delta, 0, 1 );
 		}
 
-		if ( ShotPower >= 0.01f && !input.Down( InputButton.Attack1 ) )
+		if ( ShotPower >= 0.01f && !input.Down( InputButton.PrimaryAttack ) )
 		{
 			Game.Stroke( Camera.Rotation.Yaw(), ShotPower );
 			LastShotPower = ShotPower;

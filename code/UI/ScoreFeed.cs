@@ -53,7 +53,7 @@ public partial class ScoreFeed : Panel
 		Sound.FromScreen( "minigolf.award" ).SetVolume( 0.5f );
 	}
 
-	[ClientCmd("minigolf_score_test")]
+	[ConCmd.Client("minigolf_score_test")]
 	public static void AddTest()
 	{
 		Instance.AddEntry( Local.Client, 3, 3 );

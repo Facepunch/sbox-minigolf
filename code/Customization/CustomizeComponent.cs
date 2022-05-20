@@ -143,7 +143,7 @@ public class CustomizeComponent : EntityComponent
 		public int Id { get; set; }
 	}
 
-	[ServerCmd]
+	[ConCmd.Server]
 	public static void EquipPartOnServer( int entityId, int id )
 	{
 		var ent = Entity.FindByIndex(entityId);
@@ -155,7 +155,7 @@ public class CustomizeComponent : EntityComponent
 		cfg.Equip( id );
 	}
 
-	[ServerCmd]
+	[ConCmd.Server]
 	public static void UnequipPartOnServer(int entityId, int id )
 	{
 		var ent = Entity.FindByIndex(entityId);

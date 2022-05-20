@@ -1,16 +1,11 @@
-﻿using Sandbox;
-using System.ComponentModel.DataAnnotations;
-
-namespace Facepunch.Minigolf.Entities;
+﻿namespace Facepunch.Minigolf.Entities;
 
 /// <summary>
 /// Minigolf hole goal trigger
 /// </summary>
 [Library( "minigolf_hole_goal" )]
-[Hammer.Solid]
-[Hammer.AutoApplyMaterial]
-[Hammer.VisGroup( Hammer.VisGroup.Trigger )]
-[Display( Name = "Minigolf Hole Goal" )]
+[HammerEntity, Solid, AutoApplyMaterial, VisGroup( VisGroup.Trigger )]
+[Title( "Hole Goal" )]
 public partial class HoleGoal : ModelEntity
 {
 	/// <summary>
@@ -31,23 +26,20 @@ public partial class HoleGoal : ModelEntity
 		EnableTouch = true;
 		EnableDrawing = true;
 		Transmit = TransmitType.Always;
-
 	}
 
 	public override void ClientSpawn()
 	{
 		base.ClientSpawn();
 
-
 		HoleParticle = Particles.Create( "particles/gameplay/flag_number/flag_number.vpcf", this );
 
 		var number = HoleNumber;
 
-		HoleParticle.SetPositionComponent(21,2,number%10);
+		HoleParticle.SetPositionComponent( 21, 2, number % 10 );
 
 		number /= 10;
-		HoleParticle.SetPositionComponent(21,1,number%10);
-
+		HoleParticle.SetPositionComponent(21, 1, number % 10 );
 	}
 
 	public override void StartTouch( Entity other )

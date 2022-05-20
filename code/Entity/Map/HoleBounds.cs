@@ -1,16 +1,12 @@
-﻿using Sandbox;
-using System.ComponentModel.DataAnnotations;
-
-namespace Facepunch.Minigolf.Entities;
+﻿namespace Facepunch.Minigolf.Entities;
 
 /// <summary>
 /// Bounds of a hole.
 /// </summary>
 [Library( "minigolf_hole_bounds" )]
-[Hammer.Solid]
-[Hammer.AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_hole_bounds.vmat" )]
-[Hammer.VisGroup( Hammer.VisGroup.Trigger )]
-[Display( Name = "Minigolf Hole Boundaries" )]
+[HammerEntity, Solid, AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_hole_bounds.vmat" )]
+[VisGroup( VisGroup.Trigger )]
+[Title( "Hole Bounds" )]
 public partial class HoleBounds : ModelEntity
 {
 	/// <summary>

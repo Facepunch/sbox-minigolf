@@ -1,14 +1,10 @@
-﻿using Sandbox;
-using Facepunch.Minigolf.UI;
-using Sandbox.UI.Construct;
-using System.ComponentModel.DataAnnotations;
+﻿using Facepunch.Minigolf.UI;
 
 namespace Facepunch.Minigolf.Entities;
 
-[Library( "minigolf_hole_sign", Description = "Minigolf Sign Pole" )]
-[Hammer.DrawAngles]
-[Hammer.EditorSprite( "materials/editor/hole_sign/hole_sign.vmat" )]
-[Display( Name = "Minigolf Hole Sign" )]
+[Library( "minigolf_hole_sign" )]
+[HammerEntity, DrawAngles, EditorSprite( "materials/editor/hole_sign/hole_sign.vmat" )]
+[Title( "Hole Sign" )]
 public partial class HoleSign : Entity
 {
 	HoleWorldPanel WorldPanel;

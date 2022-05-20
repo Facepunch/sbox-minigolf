@@ -1,14 +1,11 @@
-﻿using Sandbox;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿namespace Facepunch.Minigolf.Entities;
 
-namespace Facepunch.Minigolf.Entities;
-
+/// <summary>
+/// Water specifically for Minigolf... Why?!
+/// </summary>
 [Library( "minigolf_water" )]
-[Hammer.Solid]
-[Hammer.AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_water.vmat" )]
-[Hammer.VisGroup( Hammer.VisGroup.Trigger )]
-[Display( Name = "Minigolf Water" )]
+[HammerEntity, Solid, AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_water.vmat" ), VisGroup( VisGroup.Trigger )]
+[Title( "Water ( Minigolf Specific )" )]
 public partial class Water : ModelEntity
 {
 	public override void Spawn()

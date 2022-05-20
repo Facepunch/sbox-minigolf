@@ -8,10 +8,10 @@ namespace Facepunch.Minigolf;
 
 public partial class Game
 {
-	[ServerVar( "minigolf_check_bounds" )]
+	[ConVar.Server( "minigolf_check_bounds" )]
 	public static bool CheckBounds { get; set; } = true;
 
-	[ServerVar( "minigolf_bounds_forgiveness" )]
+	[ConVar.Server( "minigolf_bounds_forgiveness" )]
 	public static float BoundsForgiveness { get; set; } = 3.0f;
 
 	public enum OutOfBoundsType

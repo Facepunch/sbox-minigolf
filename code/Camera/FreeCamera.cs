@@ -64,7 +64,7 @@ public class FreeCamera : CameraMode
 		LookAngles += input.AnalogLook;
 		LookAngles.roll = 0;
 
-		input.ClearButton( InputButton.Attack1 );
+		input.ClearButton( InputButton.PrimaryAttack );
 
 		input.StopProcessing = true;
 	}

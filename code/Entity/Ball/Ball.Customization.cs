@@ -10,8 +10,8 @@ public partial class Ball
 	private Particles trail;
 
 	[Net]
-	public AnimEntity Hat { get; set; }
-	private AnimEntity localhat;
+	public AnimatedEntity Hat { get; set; }
+	private AnimatedEntity localhat;
 
 	private void CleanupCustomization()
 	{
@@ -52,7 +52,7 @@ public partial class Ball
 		if ( IsLocalPawn && !localhat.IsValid() )
 		{
 			Hat.RenderColor = Color.Transparent;
-			localhat = new AnimEntity( Hat.GetModelName() );
+			localhat = new AnimatedEntity( Hat.GetModelName() );
 		}
 
 		var target = IsLocalPawn ? localhat : Hat;
@@ -87,7 +87,7 @@ public partial class Ball
 		var hatpart = cc.GetEquippedPart( "Hats" );
 		if ( hatpart != null )
 		{
-			Hat = new AnimEntity( hatpart.AssetPath );
+			Hat = new AnimatedEntity( hatpart.AssetPath );
 		}
 
 		var skinpart = cc.GetEquippedPart( "Skins" );
@@ -103,7 +103,7 @@ public partial class Ball
 		CleanupCustomization();
 	}
 
-	[ClientCmd( "setskin", CanBeCalledFromServer = true )]
+	[ConCmd.Client( "setskin", CanBeCalledFromServer = true )]
 	public static void SetSkinOnClient( int ballIdent, string assetPath )
 	{
 		var ball = Entity.FindByIndex( ballIdent );

@@ -85,7 +85,7 @@ public partial class ChatBox : Panel
 		return;
 	}
 
-	[ClientCmd( "chat_add", CanBeCalledFromServer = true )]
+	[ConCmd.Client( "chat_add", CanBeCalledFromServer = true )]
 	public static void AddChatEntry( string name, string message, string avatar = null )
 	{
 		Current?.AddEntry( name, message, avatar );
@@ -97,19 +97,19 @@ public partial class ChatBox : Panel
 		}
 	}
 
-	[ClientCmd( "chat_addinfo", CanBeCalledFromServer = true )]
+	[ConCmd.Client( "chat_addinfo", CanBeCalledFromServer = true )]
 	public static void AddInformation( string message, string avatar = null )
 	{
 		Current?.AddEntry( null, message, avatar );
 	}
 
-	[ClientCmd( "chat_twitch", CanBeCalledFromServer = true )]
+	[ConCmd.Client( "chat_twitch", CanBeCalledFromServer = true )]
 	public static void AddTwitch( string user, string message )
 	{
 		Current?.AddEntry( user, message, "ui/twitch.jpg" );
 	}
 
-	[ServerCmd( "say" )]
+	[ConCmd.Server( "say" )]
 	public static void Say( string message )
 	{
 		Assert.NotNull( ConsoleSystem.Caller );

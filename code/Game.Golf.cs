@@ -99,7 +99,7 @@ public partial class Game
 	}
 
 	// fuck it do this somewhere else and keep score?
-	[ServerCmd]
+	[ConCmd.Server]
 	public static void Stroke( float yaw, float power )
 	{
 		var client = ConsoleSystem.Caller;

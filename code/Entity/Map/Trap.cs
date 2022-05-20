@@ -1,14 +1,8 @@
-﻿using Sandbox;
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Facepunch.Minigolf.Entities;
+﻿namespace Facepunch.Minigolf.Entities;
 
 [Library( "minigolf_trap" )]
-[Hammer.Solid]
-[Hammer.AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_trap.vmat" )]
-[Hammer.VisGroup( Hammer.VisGroup.Trigger )]
-[Display( Name = "Minigolf Trap" )]
+[HammerEntity, Solid, AutoApplyMaterial( "materials/editor/minigolf_wall/minigolf_trap.vmat" ), VisGroup( VisGroup.Trigger )]
+[Title( "Trap" )]
 public partial class Trap : ModelEntity
 {
 
