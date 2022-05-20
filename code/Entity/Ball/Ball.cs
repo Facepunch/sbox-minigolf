@@ -22,7 +22,7 @@ public partial class Ball : ModelEntity
 
 		Model = GolfBallModel;
 
-		SetupPhysicsFromModel( PhysicsMotionType.Static, false );
+		SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );
 
 		CollisionGroup = CollisionGroup.Debris;
 		EnableTraceAndQueries = false;
