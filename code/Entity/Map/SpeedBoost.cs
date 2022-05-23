@@ -63,7 +63,7 @@ public partial class SpeedBoost : ModelEntity
 		foreach( var ball in Balls )
 		{
 			if ( MaxVelocity != 0 && ball.Velocity.Length >= MaxVelocity ) continue;
-			ball.PhysicsBody.Velocity += Direction.Direction * acceleration;
+			ball.Velocity += Direction.Direction * acceleration;
 		}
 	}
 }
