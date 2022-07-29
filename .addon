@@ -21,11 +21,12 @@
       "facepunch.minigolf_build"
     ],
     "MinPlayers": 1,
-    "MapSelect": 3,
-    "RankType": 2,
+    "MapSelect": "Official",
+    "RankType": "Best",
     "PerMapRanking": true,
-    "LeaderboardType": 2,
-    "GameNetworkType": 0,
-    "MaxPlayers": 16
+    "LeaderboardType": "Ascending",
+    "GameNetworkType": "Multiplayer",
+    "MaxPlayers": 0,
+    "GameCategory": "Sports"
   }
 }

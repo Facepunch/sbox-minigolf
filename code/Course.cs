@@ -19,7 +19,7 @@ public partial class Course : BaseNetworkable
 	{
 		Host.AssertServer();
 		Holes.Clear();
-
+		
 		foreach ( var hole in Entity.All.OfType<BallSpawnpoint>().OrderBy( ent => ent.HoleNumber ) )
 		{
 			var goal = Entity.All.OfType<HoleGoal>().Where( x => x.HoleNumber == hole.HoleNumber ).First();
